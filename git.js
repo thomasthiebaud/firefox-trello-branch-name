@@ -31,7 +31,7 @@ function insertAfter(newNode, referenceNode) {
 
 function createIcon(title) {
     const img = document.createElement("img");
-    img.setAttribute('src', browser.extension.getURL("images/icon.png"));
+    img.setAttribute('src', browser.extension.getURL("images/git_16.png"));
     img.setAttribute('height', '18px');
     img.setAttribute('width', '18px');
     img.setAttribute('class', 'badge');  
