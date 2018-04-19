@@ -5,6 +5,27 @@ function replaceAll(string, search, replacement) {
     return string.replace(new RegExp(escapeRegExp(search), 'g'), replacement);
 }
 
+function copy(text) {
+    const clipboard = document.createElement('textarea');
+    clipboard.value = text;
+    document.body.appendChild(clipboard);
+    clipboard.focus();
+    clipboard.select();
+
+    try {
+        const success = document.execCommand('copy');
+        if (success) {
+            console.log('[Trello Branch Name] Branch name successfully copied to clipboard');
+        } else {
+            console.log('[Trello Branch Name] Copy to clipboard failed');
+        }
+    } catch (err) {
+        console.log('[Trello Branch Name] Copy to clipboard failed', err);
+    }
+    
+    document.body.removeChild(clipboard);
+}
+
 function generateName(event, title) {
     event.preventDefault();
     event.stopPropagation();
@@ -20,6 +41,7 @@ function generateName(event, title) {
     branchName = replaceAll(branchName, '\\', '');
     branchName = replaceAll(branchName, ' ', '-');    
     
+    copy(branchName)
     alert(branchName);
 
     return false;
