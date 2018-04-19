@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Trello branch name",
-  "version": "1.3",
+  "version": "1.4",
   "description": "Add a button on each trello card to create a git branch name from the card name",
   "icons": {
     "48": "images/git_48.png",
@@ -15,6 +15,10 @@
     "images/git_16.png"
   ],
   "permissions": [
-    "clipboardWrite"
-  ]
+    "clipboardWrite",
+    "notifications"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  }
 }

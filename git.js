@@ -26,6 +26,15 @@ function copy(text) {
     document.body.removeChild(clipboard);
 }
 
+function notify(name) {
+    browser.runtime.sendMessage({
+        content: name,
+        id: 'branchNameCopied',
+        title: 'Branch name copied to clipboard',
+        type: 'notification',
+    });
+}
+
 function generateName(event, title) {
     event.preventDefault();
     event.stopPropagation();
@@ -41,8 +50,8 @@ function generateName(event, title) {
     branchName = replaceAll(branchName, '\\', '');
     branchName = replaceAll(branchName, ' ', '-');    
     
-    copy(branchName)
-    alert(branchName);
+    copy(branchName);
+    notify(branchName);
 
     return false;
 }
