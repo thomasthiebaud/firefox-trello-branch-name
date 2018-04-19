@@ -40,9 +40,12 @@ function createIcon(title) {
     return img;
 }
 
-const badges = document.querySelectorAll('.badges') || [];
+document.arrive('.badges', { existing: true },function() {
+    const title = this.previousElementSibling.innerText;
 
-badges.forEach((badge) => {
-    const title = badge.previousElementSibling.innerText;
-    badge.appendChild(createIcon(title));
-});
+    if (this.querySelector('img.badge')) {
+        return;
+    }
+
+    this.appendChild(createIcon(title));
+})
