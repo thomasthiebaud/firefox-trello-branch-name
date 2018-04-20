@@ -13,6 +13,13 @@ function restoreOptions() {
     if (res.useCustomOptions) {
       document.querySelector("#hash").checked = res.hash;      
       document.querySelector("#notifications").checked = res.notifications;
+    } else {
+      // Add default options
+      browser.storage.sync.set({
+        hash: document.querySelector("#hash").checked,
+        notifications: document.querySelector("#notifications").checked,
+        useCustomOptions: true,
+      });
     }
   });
 }
