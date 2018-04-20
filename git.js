@@ -15,12 +15,12 @@ function copy(text) {
     try {
         const success = document.execCommand('copy');
         if (success) {
-            console.log('[Trello Branch Name] Branch name successfully copied to clipboard');
+            console.debug('[Trello Branch Name] Branch name successfully copied to clipboard');
         } else {
-            console.log('[Trello Branch Name] Copy to clipboard failed');
+            console.debug('[Trello Branch Name] Copy to clipboard failed');
         }
     } catch (err) {
-        console.log('[Trello Branch Name] Copy to clipboard failed', err);
+        console.debug('[Trello Branch Name] Copy to clipboard failed', err);
     }
     
     document.body.removeChild(clipboard);
@@ -72,11 +72,16 @@ function createIcon(title) {
 }
 
 document.arrive('.badges', { existing: true },function() {
-    const title = this.previousElementSibling.innerText;
-
     if (this.querySelector('img.badge')) {
         return;
     }
 
-    this.appendChild(createIcon(title));
+    let title = this.previousElementSibling.innerText;
+    browser.runtime.sendMessage({ type: 'options' }).then((options) => {
+        if (options.hash) {
+            title = this.previousElementSibling.textContent;  
+        }
+
+        this.appendChild(createIcon(title));
+    })
 })
