@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
   "name": "Trello branch name",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Add a button on each trello card to create a git branch name from the card name",
   "icons": {
-    "48": "images/git_48.png",
-    "96": "images/git_96.png"
+    "48": "images/icon_48.png",
+    "96": "images/icon_96.png"
   },
   "content_scripts": [{
     "matches": ["*://*.trello.com/*"],
