@@ -40,15 +40,15 @@ function generateName(event, title) {
     event.stopPropagation();
 
     let branchName = title.toLowerCase();
-    branchName = branchName.replace(/^\./, '');
-    branchName = branchName.replace(/$\//, '');
+
+    // Remove '.lock' at the end (git constraint)
     branchName = branchName.replace(/$\.lock/, '');
-    branchName = replaceAll(branchName, '..', '');
-    branchName = replaceAll(branchName, '~', '');
-    branchName = replaceAll(branchName, '^', '');
-    branchName = replaceAll(branchName, ':', '');
-    branchName = replaceAll(branchName, '\\', '');
-    branchName = replaceAll(branchName, ' ', '-');    
+    // Remove punctuation
+    branchName = branchName.replace(/[.,\/#!$%\^&\*;:{}=\_`~()]/g, '');
+    // Replace spaces
+    branchName = branchName.replace(/ /g, '-');
+    // Replace consecutive '-' by a single '-'
+    branchName = branchName.replace(/-+/g, '-');
     
     copy(branchName);
     notify(branchName);

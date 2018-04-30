@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Trello branch name",
-  "version": "1.8",
+  "version": "1.9",
   "description": "Add a button on each trello card to create a git branch name from the card name",
   "icons": {
     "48": "images/icon_48.png",
