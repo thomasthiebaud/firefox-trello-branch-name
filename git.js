@@ -60,28 +60,29 @@ function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
-function createIcon(title) {
+function createIcon(badges) {
     const img = document.createElement("img");
     img.setAttribute('src', browser.extension.getURL("images/git_16.png"));
     img.setAttribute('height', '18px');
     img.setAttribute('width', '18px');
     img.setAttribute('class', 'badge');  
-    img.addEventListener("click", (event) => generateName(event, title));
+    img.addEventListener("click", (event) => {
+        let title = badges.previousElementSibling.innerText;
+        browser.runtime.sendMessage({ type: 'options' }).then((options) => {
+            if (options.hash) {
+                title = badges.previousElementSibling.textContent;  
+            }
+        })
+        generateName(event, title)
+    });
 
     return img;
 }
 
-document.arrive('.badges', { existing: true },function() {
+document.arrive('.badges', { existing: true }, function() {
     if (this.querySelector('img.badge')) {
         return;
     }
 
-    let title = this.previousElementSibling.innerText;
-    browser.runtime.sendMessage({ type: 'options' }).then((options) => {
-        if (options.hash) {
-            title = this.previousElementSibling.textContent;  
-        }
-
-        this.appendChild(createIcon(title));
-    })
+    this.appendChild(createIcon(this));
 })
