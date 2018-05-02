@@ -44,7 +44,9 @@ function generateName(event, title) {
     // Remove '.lock' at the end (git constraint)
     branchName = branchName.replace(/$\.lock/, '');
     // Remove punctuation
-    branchName = branchName.replace(/[.,\/#!$%\^&\*;:{}=\_`~()]/g, '');
+    branchName = branchName.replace(/[.,#!$%\^&\*;:{}=\_`~()'"]/g, '');
+    // Replace '/' by '-'
+    branchName = branchName.replace(/\//g, '-');
     // Replace spaces
     branchName = branchName.replace(/ /g, '-');
     // Replace consecutive '-' by a single '-'
