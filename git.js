@@ -1,10 +1,3 @@
-function escapeRegExp(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-function replaceAll(string, search, replacement) {
-    return string.replace(new RegExp(escapeRegExp(search), 'g'), replacement);
-}
-
 function copy(text) {
     const clipboard = document.createElement('textarea');
     clipboard.value = text;
@@ -43,14 +36,16 @@ function generateName(event, title) {
 
     // Remove '.lock' at the end (git constraint)
     branchName = branchName.replace(/$\.lock/, '');
-    // Remove punctuation
-    branchName = branchName.replace(/[.,#!$%\^&\*;:{}=\_`~()'"]/g, '');
-    // Replace '/' by '-'
-    branchName = branchName.replace(/\//g, '-');
+    // Remove escaped characters
+    branchName = branchName.replace(/&[a-zA-Z]+;/g, '');
+    // Replace non alphanumeric characters by spaces
+    branchName = branchName.replace(/[^a-zA-Z0-9]/g, ' ');
+    // Replace consecutive spaces by single space
+    branchName = branchName.replace(/\s+/g, ' ');
+    // Remove spaces at the begining or end of string that may have been introduce by previous steps
+    branchName = branchName.trim();
     // Replace spaces
-    branchName = branchName.replace(/ /g, '-');
-    // Replace consecutive '-' by a single '-'
-    branchName = branchName.replace(/-+/g, '-');
+    branchName = branchName.replace(/\s+/g, '-');
     
     copy(branchName);
     notify(branchName);
