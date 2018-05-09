@@ -34,8 +34,6 @@ function generateName(event, title) {
 
     let branchName = title.toLowerCase();
 
-    // Remove '.lock' at the end (git constraint)
-    branchName = branchName.replace(/$\.lock/, '');
     // Remove escaped characters
     branchName = branchName.replace(/&[a-zA-Z]+;/g, '');
     // Replace non alphanumeric characters by spaces
